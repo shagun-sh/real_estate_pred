@@ -1,0 +1,22 @@
+# Node & Frontend dependencies
+frontend/node_modules/
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.local
+
+# R environment & temp files
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+*.Rcheck/
+
+# Logs and OS cache
+*.log
+Thumbs.db
+.DS_Store
+
+# IDE / Editor configuration
+.vscode/
+.idea/
