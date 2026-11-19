@@ -64,58 +64,5 @@ Evaluated on an independent test dataset (20% held-out test split, 3,000 observa
 | **Decision Tree Regression (`rpart`)** | 47.54 Lakhs | 93.03 Lakhs | 63.07% | Available |
 | **Random Forest Regression (`randomForest`)** | **36.40 Lakhs** | **82.90 Lakhs** | **70.67%** | **Best Performing Model** |
 
----
-
-## 5. Quick Start & Setup Guide (Run on Any PC)
-
-### Prerequisites
-Before running on a new computer, ensure you have:
-1. **R (version 4.0+)**: [Download from CRAN](https://cran.r-project.org/bin/windows/base/)
-2. **Node.js (version 18+)**: [Download from nodejs.org](https://nodejs.org/)
-3. **Git**: [Download from git-scm.com](https://git-scm.com/)
-
----
-
-### Step 1: Clone the Repository
-```bash
-git clone <YOUR_GITHUB_REPO_URL>
-cd R_PBL
-```
-
----
-
-### Step 2: One-Click Environment Setup
-Run the automated setup script to install all required R packages (`dplyr`, `caret`, `randomForest`, `plumber`, etc.) and Node modules:
-- **Double-click `setup.bat`**
-*(Or in terminal: `.\setup.bat`)*
-
----
-
-### Step 3: Launch Both Servers
-- **Double-click `restart_servers.bat`**
-
-This will automatically launch:
-1. **R Plumber API Backend** at `http://127.0.0.1:8000`
-2. **React Dashboard Frontend** at `http://localhost:3000`
-
-To stop all servers at any time, simply double-click **`stop_servers.bat`**.
-
----
-
-## 6. College Viva & Presentation Q&A Guide
-
-**Q1: Why did you choose Random Forest as your primary model?**  
-*Answer:* Real estate prices exhibit non-linear interactions (e.g., location value compounds with area, and premium floors add more value in high-rise metros). Random Forest uses an ensemble of bagged decision trees with feature sub-sampling, reducing variance and capturing non-linear relationships without overfitting, resulting in an $R^2$ of **70.67%** compared to Linear Regression's **62.69%**.
-
-**Q2: How do you prevent data leakage during model training?**  
-*Answer:* The dataset was partitioned into an 80% training set and a 20% independent testing set using `caret::createDataPartition`. All transformations (such as factor level mappings and metrics computation) were fitted solely on the training partition and validated strictly on the held-out test partition.
-
-**Q3: How does the React frontend communicate with R?**  
-*Answer:* We use **R Plumber**, a lightweight framework that converts standard R functions into HTTP REST endpoints using special roxygen comments (`#* @post`, `#* @get`). React sends JSON payloads via `fetch()` to Plumber endpoints, which passes the inputs to our saved serialized `.rds` models and returns the predicted valuation and metrics in real-time.
-
-**Q4: What are the most influential price drivers in Indian urban real estate?**  
-*Answer:* Using Mean Squared Error degradation (`%IncMSE`) from our Random Forest model, the top price determinants are:
-1. **Super Built-up Area (Sq. Ft.)**
-2. **City / Metropolitan Location**
-3. **Locality Type (Gated Community vs. Standalone)**
+ Standalone)**
 4. **Number of Bedrooms (BHK) and Bathrooms**
